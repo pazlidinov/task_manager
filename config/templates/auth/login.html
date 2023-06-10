@@ -14,12 +14,6 @@
 {% endblock javscript %}
 
 {% block content %}
-
-
-
-
-
-
 <header>
     <div class="container">
         <div class="header-inner">
@@ -45,15 +39,19 @@
                 <img class="main__image" src="{% static 'image/Login.svg' %}" alt="Login image">
             </div>
             <div class="main__right">
-                <form class="main__form" method="post">
+                <form class="main__form" method="post" action="{% url 'account:login' %}">
                     {% csrf_token %}
+                   
                     <span class="form__title title">Kirish formasi </span>
                     <p class="form__text">Ro'yhatdan o'tish vaqtida foydalangan telefon raqamingiz va parolingizdan
                         foydalanib tizimga kiring.</p>
                     <label class="main__form--label">
-                        <input class="main__form--input" type="text" placeholder="Telefon *" name="phone_number">
+                        <input class="main__form--input" type="text" placeholder="Login *" name="usernname">
                         <input class="main__form--input" type="password" placeholder="Parol *" name="password">
                         <button type="submit" class="main__form--button">Kirish</button>
+                        <span class="mx-3">Sizda akkaunt yo'qmi? <a
+                            href="{% url 'account:register' %}">Ro'yxatdan o'tish</a>
+                    </span>
                     </label>
                 </form>
             </div>
