@@ -17,5 +17,5 @@ def register(request):
         else:
             # message = "Incorrect username or password!"
             # messages.add_message(request, messages.ERROR, message)
-            return render(request, "account/register.html", {"form": form})
-    return render(request, "account/register.html", {"form": form})
+            return render(request, "auth/register.html", {"form": form})
+    return render(request, "auth/register.html", {"form": form})
