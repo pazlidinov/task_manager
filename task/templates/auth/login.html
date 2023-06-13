@@ -1,0 +1,76 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Registratition</title>
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+        integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+        crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+    <header>
+        <div class="container">
+            <div class="header-inner">
+                <div class="site-logo">
+                    <div class="header__logo">T</div>
+                    <span>Topshiriq Menejeri</span>
+                </div>
+                <div class="site-time">
+                    <p class="day"></p>
+                    <p class="month"></p>
+                    <p class="year" style="margin: 0 5px;"></p>
+                    <b class="hour"></b>
+                    <b class="minute"></b>
+                    <b class="second"></b>
+                </div>
+            </div>
+        </div>
+    </header>
+    <main>
+        <div class="container">
+            <div class="main-inner">
+                <div class="main__left">
+                    <img class="main__image" src="{% static 'image/Login.svg' %}" alt="Login image">
+                </div>
+                <div class="main__right">
+                    <form class="main__form" method="post">
+                        {% csrf_token %}
+                        <span class="form__title title">Kirish formasi </span>
+                        <p class="form__text">Ro'yhatdan o'tish vaqtida foydalangan Login va parolingizdan
+                            foydalanib tizimga kiring.</p>
+                        <label class="main__form--label">
+                            <input class="main__form--input" type="text" placeholder="Telefon *" name="username">
+                            <input class="main__form--input" type="password" placeholder="Parol *" name="password">
+                            <span>Sizda akkaunt yo'qmi? <a href="{% url 'accounts:registration' %}">Ro'yxatdan
+                                    o'tish</a>
+                            </span>
+                            <button class="main__form--button">Kirish</button>
+                        </label>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </main>
+    <footer>
+        <div class="container">
+            <div class="footer-inner">
+                <span>RoboCode IT Academy 2023</span>
+                <div class="footer__social-networks">
+                    <i class="footer__apps fab fa-facebook"></i>
+                    <i class="footer__apps fab fa-instagram"></i>
+                    <i class="footer__apps fab fa-telegram"></i>
+                    <i class="footer__apps fab fa-youtube"></i>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="{% static 'js/script.js' %}"></script>
+</body>
+
+</html>

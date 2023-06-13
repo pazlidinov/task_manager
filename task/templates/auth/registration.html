@@ -1,0 +1,114 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Registratition</title>
+  <link rel="stylesheet" href="{% static 'css/register.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div class="site-logo">
+          <div class="header__logo">T</div>
+          <span>Topshiriq Menejeri</span>
+        </div>
+        <div class="site-time">
+          <p class="day"></p>
+          <p class="month"></p>
+          <p class="year" style="margin: 0 5px;"></p>
+          <b class="hour"></b>
+          <b class="minute"></b>
+          <b class="second"></b>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="main-inner">
+        <div class="main__left">
+          <div class="slideshow_container">
+            <div class="mySlides fade">
+              <img src="{% static 'image/Register_1.svg' %}" class="slideshow__image" alt="Registratition image_1">
+              <p>Dasturlashdagi bilimlaringizni Topshiriqlar Menejeri orqali topshiriqlarni bajarish bilan
+                mustahkamlang.</p>
+            </div>
+            <div class="mySlides fade">
+              <img src="{% static 'image/Register_2.svg' %}" class="slideshow__image" alt="Registratition image_2">
+              <p>Kreativ fikrlash , mantiqiy fikrlash va to'qnash keladigan muammolarga yechim topishdagi ko
+                nikmalaringizni oshiring.</p>
+            </div>
+            <div class="mySlides fade">
+              <img src="{% static 'image/Register_3.svg' %}" class="slideshow__image" alt="Registratition image_3">
+              <p>Bizning topshiriqlar fikrlash doirangizni kengaytiradi va siz oldin ko'rmagan narsalaringizni ham ko'ra
+                boshlaysiz.</p>
+            </div>
+          </div>
+          <div class="slideshow__dots">
+            <span class="dot" onclick="currentSlide(1)"></span>
+            <span class="dot" onclick="currentSlide(2)"></span>
+            <span class="dot" onclick="currentSlide(3)"></span>
+          </div>
+        </div>
+        <div class="main__right">
+          <form class="main__form" method="post">
+            {% csrf_token %}
+            <span class="form__title title">Ro'yhatdan o'tish formasi</span>
+            <label class="main__form--label">
+              {{form.username}}
+              <input class="main__form--input" type="text" placeholder="Ism & Familya" name="full_name">
+              <!-- <input class="main__form--input" type="text" placeholder="Tug'ilgan sana" onfocus="(this.type='date')" onblur="(this.type='text')"> -->
+              {{form.birthday}}
+              {{form.diraction}}
+              {{form.phone_number}}
+              {{form.password1}}
+              <span>Sizning parolingiz boshqa shaxsiy ma'lumotlaringizga juda o'xshash bo'lishi mumkin
+                emas.</span>
+              <span>Parolingiz kamida 8 ta belgidan iborat bo'lishi kerak.</span>
+              <span>Sizning parolingiz tez-tez ishlatiladigan parol bo'lishi mumkin emas.</span>
+              <span>Sizning parolingiz to'liq raqamli bo'lishi mumkin emas.</span>
+              {{form.password2}}
+              <button class="main__form--button">Ro'yhatdan o'tish</button>
+
+            </label>
+          </form>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>RoboCode IT Academy 2023</span>
+        <div class="footer__social-networks">
+          <i class="footer__apps fab fa-facebook"></i>
+          <i class="footer__apps fab fa-instagram"></i>
+          <i class="footer__apps fab fa-telegram"></i>
+          <i class="footer__apps fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="{% static 'js/register.js' %}"></script>
+  <script>
+    let password1 = document.getElementById('id_password1')
+    let password2 = document.getElementById('id_password2')
+
+    password1.classList.add('main__form--input')
+    password1.placeholder = 'Parol *'
+
+    password2.classList.add('main__form--input')
+    password2.placeholder = 'Parol takroran *'
+  </script>
+</body>
+
+</html>

@@ -1,0 +1,235 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="{% static 'css/profile-edit.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+
+  <ul class="sidebar">
+    <button class="cross-button"><i class="fas fa-xmark"></i></button>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-streamline.svg' %}" alt="Streamline">
+        <span>Topshiriqlar</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-chat.svg' %}" alt="Chat">
+        <span>Chat</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-team.svg' %}" alt="Team">
+        <span>Jamoa</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-calendar.svg' %}" alt="Team">
+        <span>Kalendar</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link main__sidebar--lastchild" href="#">
+        <img src="{% static 'image/sidebar-user.svg' %}" alt="User Icon">
+        <span>{{object.username}}</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link main__sidebar--lastchild" href="{% url 'accounts:logout' %}">
+        <img src="{% static 'image/xmark-solid.svg' %}" alt="User Icon">
+        <span>Chiqish</span>
+      </a>
+    </li>
+  </ul>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div class="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="site-logo">
+          <div class="header__logo">T</div>
+          <span class="header__name">Topshiriq Menejeri</span>
+        </div>
+        <div class="site-time">
+          <p class="day"></p>
+          <p class="month"></p>
+          <p class="year" style="margin: 0px 5px;"></p>
+          <b class="hour"></b>
+          <b class="minute"></b>
+          <b class="second"></b>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="main-inner">
+        <ul class="main__sidebar">
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-streamline.svg' %}" alt="Streamline">
+              <span>Topshiriqlar</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-chat.svg' %}" alt="Chat">
+              <span>Chat</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-team.svg' %}" alt="Team">
+              <span>Jamoa</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-calendar.svg' %}" alt="Team">
+              <span>Kalendar</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link main__sidebar--lastchild" href="#">
+              <img src="{% static 'image/sidebar-user.svg' %}" alt="User Icon">
+              <span>{{object.username}}</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link main__sidebar--lastchild" href="{% url 'accounts:logout' %}">
+              <img src="{% static 'image/xmark-solid.svg' %}" alt="User Icon">
+              <span>Chiqish</span>
+            </a>
+          </li>
+        </ul>
+        <div class="main__edit shadow">
+          <h3 class="main__form--title">Tahrirlash formasi</h3>
+          <form class="main__edit--form" method="post">
+            {% csrf_token %}
+            <input class="main__form--input" type="text" placeholder="Ism" name="first_name">
+            <input class="main__form--input" type="text" placeholder="Familya" name="last_name">
+            <input class="main__form--input" type="text" placeholder="Tug'ilgan sana" name="birthday" onfocus="(this.type='date')" onblur="(this.type='text')">
+            <input class="main__form--input" type="file" placeholder="Rasm" name="img">
+            <input class="main__form--input" type="text" placeholder="Facebook link" name="facebook_link">
+            <input class="main__form--input" type="text" placeholder="Instagram link" name="instagram_link">
+            <input class="main__form--input" type="text" placeholder="Telegram link" name="telegram_link">
+            <button class="main__form--button">Saqlash</button>
+          </form>
+        </div>
+        <div class="main__account">
+          <div class="main__account--desc">
+            <div class="main__account--userinfo">
+              <img class="main__account--icon" src="">
+              <span class="main__account--edit">
+                <a href="{% url 'accounts:profile_edit' object.pk %}" class="fas fa-edit"></a>
+                <p>Tahrirlash</p>
+              </span>
+              <span class="main__account--username">
+                <h4>{{object.username}}</h4>
+                <span>
+                  {% if object.is_active %}online
+                  {% else %}offline
+                  {% endif %}
+                </span>
+              </span>
+              <span class="small">{{object.direction}}</span>
+            </div>
+            <div class="main__account--info small">
+              <div class="main__account--table">
+                <span style="margin: 3% 0px;">Tug'ilgan sana:</span>
+                <span style="margin: 3% 0px;">Yo'nalish:</span>
+                <span style="margin: 3% 0px;">Guruhi:</span>
+                <span style="margin: 3% 0px;">Tajriba va bilim:</span>
+                <span style="margin: 3% 0px;">Profil turi:</span>
+                <span style="margin: 3% 0px;">Ijtimoiy tarmoqlari:</span>
+              </div>
+              <div class="main__account--table">
+                <a style="margin: 3% 0px;" href="#">{{object.direction}}</a>
+                <a style="margin: 3% 0px;" href="#">{{object.work_group}}</a>
+                <a style="margin: 3% 0px;" href="#">{{object.work_group}}</a>
+                <a style="margin: 3% 0px;" href="#">UI&UX dizayner , 6 oy</a>
+                <a style="margin: 3% 0px;" href="#">
+                  {% if object.is_moderator %}Moderator
+                  {% else %}Oddiy foydalanuvchi
+                  {% endif %}</a>
+                <a style="margin: 3% 0px;" href="#">
+                  <i class="fab fa-telegram"></i>
+                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="main__account--notes shadow">
+            <span class="title">Eslatmalar !</span>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>RoboCode IT Academy 2023</span>
+        <div class="footer__social-networks">
+          <i class="footer__apps fab fa-facebook"></i>
+          <i class="footer__apps fab fa-instagram"></i>
+          <i class="footer__apps fab fa-telegram"></i>
+          <i class="footer__apps fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="{% static 'js/profile.js' %}"></script>
+</body>
+
+</html>

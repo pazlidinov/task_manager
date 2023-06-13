@@ -1,0 +1,351 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Profile</title>
+  <link rel="stylesheet" href="{% static 'css/profile.css' %}">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw=="
+    crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
+
+<body>
+  <div class="modal shadow">
+    <h3>Loyiha qo'shish formasi</h3>
+    <p class="small">Faqat 100% yakunlangan va serverga joylashtirilgan o'zining URL manziliga ega ishlarni qo'shish
+      mumkin.</p>
+    <form class="modal__form" method="post" action="{% url 'main_app:profile_project' %}">
+      {% csrf_token %}
+      <input class="modal__input" type="text" placeholder="Loyiha nomi" name="project_name">
+      <input class="modal__input" type="text" placeholder="Link" name="project_link">
+      <input class="main__form--input" type="file" placeholder="Rasm" name="img" name="poster"><br>
+      <button type="submit" class="modal__button">Qo'shish</button>
+    </form>
+    <br>
+  </div>
+  <ul class="sidebar">
+    <button class="cross-button"><i class="fas fa-xmark"></i></button>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-streamline.svg' %}" alt="Streamline">
+        <span>Topshiriqlar</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-chat.svg' %}" alt="Chat">
+        <span>Chat</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-team.svg' %}" alt="Team">
+        <span>Jamoa</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link" href="#">
+        <img src="{% static 'image/sidebar-calendar.svg' %}" alt="Team">
+        <span>Kalendar</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link main__sidebar--lastchild" href="#">
+        <img src="{% static 'image/sidebar-user.svg' %}" alt="User Icon">
+        <span>{{object.username}}</span>
+      </a>
+    </li>
+    <li class="sidebar__item">
+      <a class="sidebar__link main__sidebar--lastchild" href="{% url 'accounts:logout' %}">
+        <img src="{% static 'image/xmark-solid.svg' %}" alt="User Icon">
+        <span>Chiqish</span>
+      </a>
+    </li>
+  </ul>
+  <header>
+    <div class="container">
+      <div class="header-inner">
+        <div class="burger">
+          <div class="line"></div>
+          <div class="line"></div>
+          <div class="line"></div>
+        </div>
+        <div class="site-logo">
+          <div class="header__logo">T</div>
+          <span class="header__name">Topshiriq Menejeri</span>
+        </div>
+        <div class="site-time">
+          <p class="day"></p>
+          <p class="month"></p>
+          <p class="year" style="margin: 0px 5px;"></p>
+          <b class="hour"></b>
+          <b class="minute"></b>
+          <b class="second"></b>
+        </div>
+      </div>
+    </div>
+  </header>
+  <main>
+    <div class="container">
+      <div class="main-inner">
+        <ul class="main__sidebar">
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-streamline.svg' %}" alt="Streamline">
+              <span>Topshiriqlar</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-chat.svg' %}" alt="Chat">
+              <span>Chat</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-team.svg' %}" alt="Team">
+              <span>Jamoa</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link" href="#">
+              <img src="{% static 'image/sidebar-calendar.svg' %}" alt="Team">
+              <span>Kalendar</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link main__sidebar--lastchild" href="#">
+              <img src="{% static 'image/sidebar-user.svg' %}" alt="User Icon">
+              <span>{{object.username}}</span>
+            </a>
+          </li>
+          <li class="main__sidebar--item">
+            <a class="main__sidebar--link main__sidebar--lastchild" href="{% url 'accounts:logout' %}">
+              <img src="{% static 'image/xmark-solid.svg' %}" alt="User Icon">
+              <span>Chiqish</span>
+            </a>
+          </li>
+        </ul>
+        <div class="main__stats">
+          <div class="main__stats--box shadow">
+            <div class="main__stats--numbers">
+              <img src="{% static 'image/stats-star.svg' %}" alt="Statistics Star">
+              <h2 class="main__stats--scorenumber">
+                {% if object.points %} {{object.points}}
+                {% else %}0
+                {% endif %}
+              </h2>
+              <span class="main__stats--subtitle">RoboPoint</span>
+            </div>
+            <div class="main__stats--numbers">
+              <img src="{% static 'image/stats-coin.svg' %}" alt="Statistics Coin">
+              <h2 class="main__stats--scorenumber">
+                {% if object.get_robo_coints %} {{object.get_robo_coints}}
+                {% else %}0
+                {% endif %}</h2>
+              <span class="main__stats--subtitle">RoboCoin</span>
+            </div>
+            <div class="main__stats--numbers">
+              <img src="{% static 'image/stats-smile.svg' %}" alt="Statistics Smile Emote">
+              <h2 class="main__stats--scorenumber">4.9</h2>
+              <span class="main__stats--subtitle">Reyting</span>
+            </div>
+            <div class="main__stats--numbers">
+              <img src="{% static 'image/stats-up.svg' %}" alt="Statistics Treinding Up">
+              <h2 class="main__stats--scorenumber">23%</h2>
+              <span class="main__stats--subtitle">O'sish</span>
+            </div>
+          </div>
+          <div class="main__stats--rating">
+            <div class="main__stats--grade grade2 shadow">
+              <canvas id="myChart" class="myChart"></canvas>
+            </div>
+            <div class="main__stats--grade shadow">
+              <div class="main__stats--results">
+                <span>
+                  <h2 class="main__stats--scorenumber">36</h2>
+                  <h5>ta</h5>
+                </span>
+                <p style="font-size: 12px;">Berilgan topshiriqlar</p>
+              </div>
+              <div class="main__stats--results">
+                <span>
+                  <h2 class="main__stats--scorenumber">
+                    {% if object.doned_tasks %} {{object.doned_tasks}}
+                    {% else %}0
+                    {% endif %}
+                  </h2>
+                  <h5>ta</h5>
+                </span>
+                <p style="font-size: 12px;">Yakunlangan topshiriqlar</p>
+              </div>
+              <div class="main__stats--results">
+                <span>
+                  <h2 class="main__stats--scorenumber">72</h2>
+                  <h5>%</h5>
+                </span>
+                <p style="font-size: 12px;">O'zlashtirish darajasi</p>
+              </div>
+              <div class="main__stats--results">
+                <span>
+                  <h2 class="main__stats--scorenumber">612</h2>
+                  <h5>ball</h5>
+                </span>
+                <p style="font-size: 12px;">Jami to'plangan ballar</p>
+              </div>
+            </div>
+          </div>
+          <div class="main__stats--scores">
+
+            {% if object.completed_task.count %}
+            <h3>So'nggi olingan ballar</h3>
+            {% for item in object.completed_task.all %}
+            <div class="main__stats--table shadow">
+              <span class="main__table--details">{{item.task}}</span>
+              <p class="main__table--details">
+                <i class="fa-regular fa-check-circle"></i>
+                <small>Yakunlangan</small>
+              </p>
+              <p class="main__table--details">
+                <i class="fa-regular fa-star"></i>
+                <small>{{item.points}}</small>
+              </p>
+            </div>
+            {% endfor %}
+            {% else %}<h3>So'nggi olingan ballar: 0</h3>
+            {% endif %}
+          </div>
+          <div class="main__stats--projects">
+            <div class="main__stats--title">
+              <span class="main__stats--name">
+                <h3>Yakunlangan loyihalarim :</h3>
+                <h3>{{object.project_author}} ta</h3>
+                {% if object.project_author.count %}
+                <h3>{{object.project_author.count}} ta</h3>
+                {% else %} 
+                <h3>0 ta</h3>
+                {% endif %}
+              </span>
+              <button class="main__projects--button">Loyiha qo'shish</button>
+            </div>
+            <div class="main__stats--sites">
+              {% for item in object.project_author.all %}
+              <div class="main__stats--sitename">
+                <a href="{{ item.project_link}}">
+                  <h5 style="color: blue;">{{item.project_name}}</h5>
+                </a>
+                <div class="main__stats--image">
+                  <img src="{{item.poster}}" alt="Projects">
+                </div>
+              </div>
+              {% endfor %}
+
+            </div>
+          </div>
+        </div>
+        <div class="main__account">
+          <div class="main__account--desc">
+            <div class="main__account--userinfo">
+              <img class="main__account--icon" src="{{object.img.url}}">
+              <span class="main__account--edit">
+                <a href="{% url 'accounts:profile_edit' object.pk %}" class="fas fa-edit"></a>
+                <p>Tahrirlash</p>
+              </span>
+              <span class="main__account--username">
+                <h4>{{object.first_name}}</h4>
+                <h4>{{object.last_name}}</h4>
+                <span>
+                  {% if object.is_active %}online
+                  {% else %}offline
+                  {% endif %}
+                </span>
+              </span>
+              <span class="small">{{object.direction}}</span>
+            </div>
+            <div class="main__account--info small">
+              <div class="main__account--table">
+                <span style="margin: 3% 0px;">Tug'ilgan sana:</span>
+                <span style="margin: 3% 0px;">Yo'nalish:</span>
+                <span style="margin: 3% 0px;">Guruhi:</span>
+                <span style="margin: 3% 0px;">Tajriba va bilim:</span>
+                <span style="margin: 3% 0px;">Profil turi:</span>
+                <span style="margin: 3% 0px;">Ijtimoiy tarmoqlari:</span>
+              </div>
+              <div class="main__account--table">
+                <a style="margin: 3% 0px;" href="#">{{object.direction}}</a>
+                <a style="margin: 3% 0px;" href="#">{{object.work_group}}</a>
+                <a style="margin: 3% 0px;" href="#">{{object.work_group}}</a>
+                <a style="margin: 3% 0px;" href="#">UI&UX dizayner , 6 oy</a>
+                <a style="margin: 3% 0px;" href="#">
+                  {% if object.is_moderator %}Moderator
+                  {% else %}Oddiy foydalanuvchi
+                  {% endif %}</a>
+                <a style="margin: 3% 0px;" href="#">
+                  <i class="fab fa-telegram"></i>
+                  <i class="fab fa-instagram"></i>
+                  <i class="fab fa-facebook-f"></i>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div class="main__account--notes shadow">
+            <span class="title">Eslatmalar !</span>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+            <div class="main__notes--table">
+              <div class="main__notes--rating">
+                <i class="fa-regular fa-star"></i>
+                <span>10</span>
+              </div>
+              <p class="small">Padding marginlarni yaxshilab tushinib olish kerak, UI&UX haqida ko'proq dars qilish
+                zarur</p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </main>
+  <footer>
+    <div class="container">
+      <div class="footer-inner">
+        <span>RoboCode IT Academy 2023</span>
+        <div class="footer__social-networks">
+          <i class="footer__apps fab fa-facebook"></i>
+          <i class="footer__apps fab fa-instagram"></i>
+          <i class="footer__apps fab fa-telegram"></i>
+          <i class="footer__apps fab fa-youtube"></i>
+        </div>
+      </div>
+    </div>
+  </footer>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.9.4/Chart.js"></script>
+  <script src="{% static 'js/profile.js' %}"></script>
+</body>
+
+</html>
