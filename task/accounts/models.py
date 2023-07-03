@@ -35,3 +35,14 @@ class Profile(User):
 
     def __str__(self):
         return str(f'{self.first_name} {self.last_name}')
+
+
+
+class Uchat(models.Model):
+    message = models.TextField()
+    sender = models.ForeignKey(
+        User, on_delete=models.CASCADE, blank=True, null=True)
+    time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
+
+    def __str__(self):
+        return str(self.sender)
