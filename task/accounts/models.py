@@ -41,7 +41,7 @@ class Profile(User):
 class Uchat(models.Model):
     message = models.TextField()
     sender = models.ForeignKey(
-        User, on_delete=models.CASCADE, blank=True, null=True)
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE, blank=True, null=True)
     time = models.DateTimeField(auto_now_add=True, blank=True, null=True)
 
     def __str__(self):
