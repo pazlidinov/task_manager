@@ -139,4 +139,4 @@ LOGOUT_URL = LOGIN_URL
 
 
 
-# AUTH_USER_MODEL = "accounts.Profile"
+AUTH_USER_MODEL = "accounts.Profile"

@@ -1,14 +1,14 @@
 from django.db import models
-from django.contrib.auth.models import User
-# from django.conf import settings
+from django.contrib.auth.models import AbstractUser
+from django.conf import settings
 from main_app.models import Direction, Group, Task
 
 # Create your models here.
 
 
-class Profile(User):
-    # author = models.ForeignKey(
-    #     settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+class Profile(AbstractUser):
+    author = models.ForeignKey(
+        settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
     birthday = models.DateField(blank=True, null=True)
     direction = models.ForeignKey(
         Direction, on_delete=models.CASCADE, related_name='user_direction', blank=True, null=True)
